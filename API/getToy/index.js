@@ -1,6 +1,6 @@
 var mysql = require('mysql');
 
-exports.handler = function(event, context) {
+exports.handler = function(event, context, callback) {
     var pool = mysql.createPool({
         connectionLimit: event.dbconnectionlimit,
         host: event.dbhost,
@@ -15,7 +15,7 @@ exports.handler = function(event, context) {
         if (err) {
             connection.release();
             pool.end()
-            return context.fail("Can't connect to DB");
+            return callback("Can't connect to DB", null);
         }
 
         // Get the toy's UUID from the URL path
@@ -27,18 +27,38 @@ exports.handler = function(event, context) {
                 if (err) {
                     connection.release();
                     pool.end()
-                    return context.fail("Query failed: " + err);
+                    return callback("Query failed: " + err, null);
                 }
 
-                connection.release();
-                pool.end()
-
                 if (!results.length) {
-                    return context.fail("Toy not found");
+                    connection.release();
+                    pool.end()
+                    return callback("Toy not found", null);
+
                 }
 
                 var toy = results[0];
-                return context.succeed(toy);
+
+                // Look up the toy's most recent location
+                connection.query('SELECT hint, message, image_url, lat, lon, created FROM toy_history WHERE toy_uuid = ? ORDER BY created DESC LIMIT 1', [toyUUID],
+                    function(err, history, fields) {
+                        if (err) {
+                            connection.release();
+                            pool.end()
+                            return callback("Query failed: " + err, null);
+                        }
+
+                        connection.release();
+                        pool.end()
+
+                        if (!history.length) {
+                            return callback("Toy has no history", null);
+                        }
+
+                        var location = history[0];
+                        toy.location = location;
+                        return callback(null, toy);
+                    });
             });
     });
 };
