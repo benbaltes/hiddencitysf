@@ -21,7 +21,8 @@ exports.handler = function(event, context) {
         // Get the toy's UUID from the URL path
         var toyUUID = event.toyID;
 
-        connection.query('SELECT * FROM toys WHERE uuid = ? LIMIT 1', [toyUUID],
+        // Look up toy in DB
+        connection.query('SELECT uuid, name, image_url, story, created FROM toys WHERE uuid = ? LIMIT 1', [toyUUID],
             function(err, results, fields) {
                 if (err) {
                     connection.release();
@@ -31,6 +32,10 @@ exports.handler = function(event, context) {
 
                 connection.release();
                 pool.end()
+
+                if (!results.length) {
+                    return context.fail("Toy not found");
+                }
 
                 var toy = results[0];
                 return context.succeed(toy);
