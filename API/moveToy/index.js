@@ -18,16 +18,43 @@ exports.handler = function(event, context, callback) {
         }
 
         //Request body
-        var pokemonID = event.body.pokemonID;
-        var lat = event.body.lat;
-        var lon = event.body.lon;
-        var dateSpotted = event.body.dateSpotted;
+        var hint = event.body.hint; // 1024
+        var message = event.body.message; // 2048, optional
+        var image_url = event.body.image_url; // 1024, optional
+        var lat = event.body.lat; // -90 - 90
+        var lon = event.body.lon; // -180 - 180
 
         //Check for required fields
-        if (!pokemonID || !lat || !lon || !dateSpotted) {
+        if (!hint || !lat || !lon) {
             connection.release();
             pool.end()
             return callback("Missing required fields", null);
+        }
+
+        // Check hint
+        if (hint.length > 1024) {
+            connection.release();
+            pool.end()
+            return callback("hint must be under 1024 characters", null);
+        }
+
+        // Check message
+        if (message && message.length > 2048) {
+            connection.release();
+            pool.end()
+            return callback("message must be under 2048 characters", null);
+        }
+
+        // Check image_url
+        if (image_url && image_url.length > 1024) {
+            connection.release();
+            pool.end()
+            return callback("image_url must be under 1024 characters", null);
+        }
+
+        // Validate image_url
+        if (image_url) {
+
         }
 
         //Check lat
@@ -47,7 +74,7 @@ exports.handler = function(event, context, callback) {
         }
 
         //Update user
-        connection.query('INSERT INTO l ?, NOW())', [uuid, pokemonID, lat, lon, dateSpotted], function(err, results, fields) {
+        connection.query('INSERT INTO toy_history (uuid, toy_uuid, hint, message, image_url, lat, lon, created) VALUES (UUID(), ?, ?, ?, ?, ?, ?, NOW())', [toy_uuid, hint, message, image_url, lat, lon], function(err, results, fields) {
             if (err) {
                 connection.release();
                 pool.end()
@@ -56,7 +83,7 @@ exports.handler = function(event, context, callback) {
 
             var objectID = results.insertId;
 
-            connection.query('SELECT uuid FROM pokemon_locations WHERE id = ?', [objectID], function(err, results, fields) {
+            connection.query('SELECT uuid FROM toy_history WHERE id = ?', [objectID], function(err, results, fields) {
                 if (err) {
                     connection.release();
                     pool.end();
