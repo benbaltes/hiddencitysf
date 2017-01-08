@@ -1,5 +1,10 @@
 var mysql = require('mysql');
 
+function validURL(url) {
+	var regexp = /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+	return regexp.test(url);
+}
+
 exports.handler = function(event, context, callback) {
     var pool = mysql.createPool({
         connectionLimit: event.dbconnectionlimit,
@@ -56,8 +61,10 @@ exports.handler = function(event, context, callback) {
         }
 
         // Validate image_url
-        if (image_url) {
-
+        if (image_url && !validURL(image_url)) {
+            connection.release();
+            pool.end()
+            return callback("image_url invalid", null);
         }
 
         // Check lat
