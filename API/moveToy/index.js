@@ -17,14 +17,14 @@ exports.handler = function(event, context, callback) {
             return callback("Can't connect to DB", null);
         }
 
-        //Request body
+        // Request body
         var hint = event.body.hint; // 1024
         var message = event.body.message; // 2048, optional
         var image_url = event.body.image_url; // 1024, optional
         var lat = event.body.lat; // -90 - 90
         var lon = event.body.lon; // -180 - 180
 
-        //Check for required fields
+        // Check for required fields
         if (!hint || !lat || !lon) {
             connection.release();
             pool.end()
@@ -57,7 +57,7 @@ exports.handler = function(event, context, callback) {
 
         }
 
-        //Check lat
+        // Check lat
         var latFloat = parseFloat(lat);
         if (!latFloat || latFloat == 0 || latFloat < -90 || latFloat > 90) {
             connection.release();
@@ -65,7 +65,7 @@ exports.handler = function(event, context, callback) {
             return callback("Invalid lat", null);
         }
 
-        //Check lon
+        // Check lon
         var lonFloat = parseFloat(lon);
         if (!lonFloat || lonFloat == 0 || lonFloat < -180 || lonFloat > 180) {
             connection.release();
@@ -73,7 +73,7 @@ exports.handler = function(event, context, callback) {
             return callback("Invalid lon", null);
         }
 
-        //Update user
+        // Move toy
         connection.query('INSERT INTO toy_history (uuid, toy_uuid, hint, message, image_url, lat, lon, created) VALUES (UUID(), ?, ?, ?, ?, ?, ?, NOW())', [toy_uuid, hint, message, image_url, lat, lon], function(err, results, fields) {
             if (err) {
                 connection.release();
@@ -83,6 +83,7 @@ exports.handler = function(event, context, callback) {
 
             var objectID = results.insertId;
 
+            // Get UUID of row we just created
             connection.query('SELECT uuid FROM toy_history WHERE id = ?', [objectID], function(err, results, fields) {
                 if (err) {
                     connection.release();
