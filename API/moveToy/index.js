@@ -17,6 +17,9 @@ exports.handler = function(event, context, callback) {
             return callback("Can't connect to DB", null);
         }
 
+        // Query params
+        var toy_uuid = event.toyID;
+
         // Request body
         var hint = event.body.hint; // 1024
         var message = event.body.message; // 2048, optional
