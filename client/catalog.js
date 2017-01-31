@@ -15,6 +15,15 @@ function populateAllToys(){
    			console.log(imageUrl);
    			$(".toycatalog").append("<div class='box'></div>");
    		}
+      var childDivs = $(".toycatalog").children();
+      console.log(childDivs)
+      var i = 0
+      for(toyIndex in result){ 
+        console.log(childDivs[i])
+        console.log(result[i].image_url)  
+        childDivs[i].style.backgroundImage = "url('" + result[i].image_url + "')";
+        i++;
+      }
    }, 
    error : function(result) { 
      	console.log("FAILURE");
