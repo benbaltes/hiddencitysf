@@ -1,0 +1,33 @@
+.toyimagecontainer {
+	text-align: center;
+}
+
+.toystatus {
+	display: inline-block;
+
+}
+
+.commentcontainer {
+	background: 'red'
+}
+
+.comment {
+
+}
+
+.commentpic {
+	float:left;
+	width:120px;
+	height:120px;
+}
+
+.commenttext {
+	padding: 10px;
+	float:left;
+}
+
+.commentimg {
+	padding: 10px;
+	max-width: 100%;
+	max-height: 100%;
+}
