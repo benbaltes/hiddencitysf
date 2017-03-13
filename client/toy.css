@@ -4,30 +4,62 @@
 
 .toystatus {
 	display: inline-block;
+}
 
+.headerimagecontainer {
+	width: 500px;
+	height: 400px;
+	background-color: #c04e64;
+}
+
+.headerimage {
+	width: 500px;
+	height: 400px;
+	object-fit: cover;
 }
 
 .commentcontainer {
-	background: 'red'
+	display: block;
+	background: blue;
+	height: 100%;
 }
 
 .comment {
-
+	display: block;
+	position: relative;
+	border: 10px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
 .commentpic {
-	float:left;
-	width:120px;
-	height:120px;
-}
-
-.commenttext {
-	padding: 10px;
-	float:left;
+	background-color: #874e64;
+	float: left;
+	width: 120px;
+	height: 120px;
+	
 }
 
 .commentimg {
-	padding: 10px;
-	max-width: 100%;
-	max-height: 100%;
+	width: 120px;
+	height: 100px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	object-fit: cover;
 }
+
+.commenttext {
+	background-color: #5b4e64;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	padding-left: 15px;
+	width: 355px;
+	float:left;
+	
+}
+
