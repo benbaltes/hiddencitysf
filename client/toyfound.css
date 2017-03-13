@@ -1,0 +1,55 @@
+.outerlayoutcontainer {
+	display: block;
+	text-align: center;
+	width: 100%;
+	height: 100%;
+}
+	.layoutcontainer {
+		display: inline-block;
+		text-align: center;
+		max-width: 900px
+	}
+
+		.toytitle {
+		 	display: inline-block;
+		}
+
+		.toyimagecontainer {
+			display: inline-block;
+			max-width: 700px;
+			background-color: red;
+			text-align: center;
+			padding: 20px;
+		}
+
+		.toyimage {
+			max-width: 100%;
+			max-height: 100%;
+			object-fit: cover;
+		}
+
+		.steprow {
+			display:block;
+			background-color: orange;
+		}
+
+			.step {
+				display: inline-block;
+				background-color: red;
+				width: 200px;
+				height: 200px;
+				margin: 20px;
+				border-radius: 12px;
+			}
+
+		.dontplayblurb {
+			display: block;
+		}
+
+.button {
+	color: white;
+	font-size: 40px;
+	background-color: teal;
+	border-radius: 10px;
+	padding: 20px;
+}
