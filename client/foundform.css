@@ -1,0 +1,32 @@
+.outerlayoutcontainer {
+	display: block;
+	text-align: center;
+	width: 100%;
+	height: 100%;
+}
+	.layoutcontainer {
+		display: inline-block;
+		text-align: center;
+		max-width: 900px
+	}
+
+	.pagetitle {
+	 	display: inline-block;
+	}
+
+	.inputbox {
+		width: 80%;
+		height: 40px;
+		background-color: #EEEEEE;
+	}
+
+
+
+.button {
+	color: white;
+	font-size: 20px;
+	background-color: teal;
+	border-radius: 10px;
+	padding: 20px;
+	margin: 20px;
+}
