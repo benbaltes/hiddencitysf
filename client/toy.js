@@ -31,15 +31,18 @@ function initMap(locations) {
 			center: uluru
 		});
 
+		marker = new google.maps.Marker({
+			 position: new google.maps.LatLng(uluru.lat,uluru.lng),
+			 map: map
+		 });
 
-
-		// for(location in locations){
-		// 	// console.log(': ' + location.lat + ' - ' location.lng);
-		// 	//  marker = new google.maps.Marker({
-		// 	// 		position: new google.maps.LatLng(location.lat,location.lng),
-		// 	// 		map: map
-		// 	// 	});
-		// }
+		for(loc in locations){
+			console.log('making marker at: ' + loc.lat + ' - ' + loc.lng);
+			 marker = new google.maps.Marker({
+					position: new google.maps.LatLng(loc.lat,loc.lng),
+					map: map
+				});
+		}
 	}
 }
 
@@ -58,19 +61,17 @@ function populateToyLocations(toyID) {
 	 	  console.log("SUCCESS");
 	 	  console.log(result);
 
-			var locs = [{}];
+			var locs2 = [];
+			console.log(locs2);
 
 			for(locationMeta in result){
-				console.log('in metadata')
-				var lat = locationMeta.lat;
-				var lon = locationMeta.lon;
-				locs = locs + {lat:lat, lng:lon};
+				var latitude = result[locationMeta].lat;
+				var longitude = result[locationMeta].lon;
+				locs = locs2.push({lat:latitude, lng:longitude});
 				var message = locationMeta.message;
 			}
-
-			console.log('locs')
-			console.log(locs);
-			initMap(locs);
+			console.log(locs2);
+			initMap(locs2);
 	   },
 	   error : function(result) {
 	     	console.log("FAILURE");
