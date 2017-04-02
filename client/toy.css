@@ -20,6 +20,10 @@
 	object-fit: cover;
 }
 
+#map {
+	height: 400px;
+	width: 100%;
+}
 .commentcontainer {
 	display: block;
 	background: blue;

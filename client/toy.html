@@ -58,26 +58,7 @@
           <a class="mdl-navigation__link" href="">Toys</a>
           <a class="mdl-navigation__link" href="">About</a>
           <a class="mdl-navigation__link" href="">Team</a>
-          <!--a class="mdl-navigation__link" href="">TV</a>
-          <a class="mdl-navigation__link" href="">Auto</a>
-          <a class="mdl-navigation__link" href="">One</a>
-          <a class="mdl-navigation__link" href="">Play</a-->
           <div class="android-drawer-separator"></div>
-          <!--span class="mdl-navigation__link" href="">Versions</span>
-          <a class="mdl-navigation__link" href="">Lollipop 5.0</a>
-          <a class="mdl-navigation__link" href="">KitKat 4.4</a>
-          <a class="mdl-navigation__link" href="">Jelly Bean 4.3</a>
-          <a class="mdl-navigation__link" href="">Android history</a>
-          <div class="android-drawer-separator"></div>
-          <span class="mdl-navigation__link" href="">Resources</span>
-          <a class="mdl-navigation__link" href="">Official blog</a>
-          <a class="mdl-navigation__link" href="">Android on Google+</a>
-          <a class="mdl-navigation__link" href="">Android on Twitter</a>
-          <div class="android-drawer-separator"></div>
-          <span class="mdl-navigation__link" href="">For developers</span>
-          <a class="mdl-navigation__link" href="">App developer resources</a>
-          <a class="mdl-navigation__link" href="">Android Open Source Project</a>
-          <a class="mdl-navigation__link" href="">Android SDK</a-->
         </nav>
       </div>
 
@@ -86,13 +67,18 @@
 
            <div class="toystatus">
             <div>
-              <h2>MARVIN THE ALIEN</h2>
+              <h2 id="toyname">MARVIN THE ALIEN</h2>
             <div>
               <div class="headerimagecontainer">
-              <img class="headerimage" src="images/toyimage2.png"></img>           
+              <img id='toyIMG' class="headerimage" src="images/toyimage2.png"></img>
             </div>
-          </div> 
+          </div>
         </div>
+        <div id="map"></div>
+
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkT9zqlknm7wDsK1OGNHlhtj5vzUekEh8&callback=initMap">
+        </script>
+
         <div class="commentcontainer">
           <div class="comment">
             <div class="commentpic">
@@ -102,7 +88,7 @@
               <b>Ben Baltes</b> says... <br>
             </div>
             <div class="commenttext">
-              I'm from Canada! 
+              I'm from Canada!
             </div>
             <div class="commenttimestamp">
               <br>at 9:12pm on 3/12/2017
@@ -130,5 +116,5 @@
   </body>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="toyinfo.js"></script>
+  <script src="toy.js"></script>
 </html>
