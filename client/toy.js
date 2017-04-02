@@ -19,10 +19,8 @@ function getParameterByName(name,url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-function initMap(locations) {
-	if(locations != null){
-		console.log('locations');
-		console.log(locations);
+function initMap(result) {
+	if(result != null){
 		var uluru = {lat: 37.7960991, lng: -122.4155806};
 		// var uluru2 = {lat: 37.7930991, lng: -122.4195806};
 
@@ -31,17 +29,21 @@ function initMap(locations) {
 			center: uluru
 		});
 
+
 		marker = new google.maps.Marker({
 			 position: new google.maps.LatLng(uluru.lat,uluru.lng),
 			 map: map
 		 });
 
-		for(loc in locations){
-			console.log('making marker at: ' + loc.lat + ' - ' + loc.lng);
-			 marker = new google.maps.Marker({
-					position: new google.maps.LatLng(loc.lat,loc.lng),
-					map: map
-				});
+		for(locationMeta in result){
+			var latitude = result[locationMeta].lat;
+			var longitude = result[locationMeta].lon;
+
+			marker = new google.maps.Marker({
+				position: new google.maps.LatLng(latitude,longitude),
+				map: map
+			});
+
 		}
 	}
 }
@@ -61,17 +63,7 @@ function populateToyLocations(toyID) {
 	 	  console.log("SUCCESS");
 	 	  console.log(result);
 
-			var locs2 = [];
-			console.log(locs2);
-
-			for(locationMeta in result){
-				var latitude = result[locationMeta].lat;
-				var longitude = result[locationMeta].lon;
-				locs = locs2.push({lat:latitude, lng:longitude});
-				var message = locationMeta.message;
-			}
-			console.log(locs2);
-			initMap(locs2);
+			initMap(result);
 	   },
 	   error : function(result) {
 	     	console.log("FAILURE");
