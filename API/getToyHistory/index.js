@@ -22,7 +22,7 @@ exports.handler = function(event, context, callback) {
         var toyUUID = event.toyID;
 
         // Look up the toy's history
-        connection.query('SELECT hint, message, image_url, lat, lon, created FROM toy_history WHERE toy_uuid = ? ORDER BY created DESC', [toyUUID],
+        connection.query('SELECT hint, message, image_url, lat, lon, created, user_name FROM toy_history WHERE toy_uuid = ? ORDER BY created DESC', [toyUUID],
             function(err, history, fields) {
                 if (err) {
                     connection.release();

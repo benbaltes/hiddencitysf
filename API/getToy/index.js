@@ -40,7 +40,7 @@ exports.handler = function(event, context, callback) {
                 var toy = results[0];
 
                 // Look up the toy's most recent location
-                connection.query('SELECT hint, message, image_url, lat, lon, created FROM toy_history WHERE toy_uuid = ? ORDER BY created DESC LIMIT 1', [toyUUID],
+                connection.query('SELECT hint, message, image_url, lat, lon, created, user_name FROM toy_history WHERE toy_uuid = ? ORDER BY created DESC LIMIT 1', [toyUUID],
                     function(err, history, fields) {
                         if (err) {
                             connection.release();
