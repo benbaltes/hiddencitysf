@@ -48,6 +48,40 @@ function initMap(result) {
 	}
 }
 
+function initComments(result) {
+  console.log('RESULT IN INIT COMMENTS');
+  console.log(result)
+  commentTemplate = makeCommentHTML(result[0]);
+  $('.commentcontainer').append(commentTemplate);
+  console.log(commentTemplate);
+}
+
+function makeCommentHTML(locData) {
+  userImg = locData.image_url;
+  userMsg = locData.message;
+  userName = locData.user_name;
+  time = locData.created;
+
+  commentTemplate = ['<div class="comment">',
+    '<div class="commentpic">',
+      '<img class="commentimg" src="images/toyimage.png"></img>',
+    '</div>',
+    '<div class="commentmetadata">',
+      '<b>',
+        userName,
+      '</b> says... <br>',
+    '</div>',
+    '<div class="commenttext">',
+      userMsg,
+    '</div>',
+    '<div class="commenttimestamp"><br> at ',
+      time,
+    '</div>',
+  '</div>'];
+
+  return commentTemplate.join("");
+}
+
 function populateToyLocations(toyID) {
  console.log('in func getToyLocations');
  if(toyID==null){
@@ -64,6 +98,7 @@ function populateToyLocations(toyID) {
 	 	  console.log(result);
 
 			initMap(result);
+      initComments(result);
 	   },
 	   error : function(result) {
 	     	console.log("FAILURE");
