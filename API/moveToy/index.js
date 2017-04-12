@@ -31,6 +31,7 @@ exports.handler = function(event, context, callback) {
         var image_url = event.body.image_url; // 1024, optional
         var lat = event.body.lat; // -90 - 90
         var lon = event.body.lon; // -180 - 180
+        var user_name = event.body.user_name; // 128
 
         // Check for required fields
         if (!hint || !lat || !lon) {
@@ -51,6 +52,13 @@ exports.handler = function(event, context, callback) {
             connection.release();
             pool.end()
             return callback("message must be under 2048 characters", null);
+        }
+
+        // Check user_name
+        if (user_name && user_name.length > 128) {
+            connection.release();
+            pool.end()
+            return callback("user_name must be under 128 characters", null);
         }
 
         // Check image_url
@@ -84,7 +92,7 @@ exports.handler = function(event, context, callback) {
         }
 
         // Move toy
-        connection.query('INSERT INTO toy_history (uuid, toy_uuid, hint, message, image_url, lat, lon, created) VALUES (UUID(), ?, ?, ?, ?, ?, ?, NOW())', [toy_uuid, hint, message, image_url, lat, lon], function(err, results, fields) {
+        connection.query('INSERT INTO toy_history (uuid, toy_uuid, hint, message, image_url, lat, lon, user_name, created) VALUES (UUID(), ?, ?, ?, ?, ?, ?, ?, NOW())', [toy_uuid, hint, message, image_url, lat, lon, user_name], function(err, results, fields) {
             if (err) {
                 connection.release();
                 pool.end()

@@ -40,7 +40,7 @@ exports.handler = function(event, context, callback) {
                 async.forEach(results, function(toy, callback) {
 
                     //Get history
-                    connection.query('SELECT hint, message, image_url, lat, lon, created FROM toy_history WHERE toy_uuid = ? ORDER BY created DESC LIMIT 1', [toy.uuid], function(err, history, fields) {
+                    connection.query('SELECT hint, message, image_url, lat, lon, created, user_name FROM toy_history WHERE toy_uuid = ? ORDER BY created DESC LIMIT 1', [toy.uuid], function(err, history, fields) {
                         if (err) {
                             connection.release();
                             pool.end()
